@@ -156,7 +156,8 @@
   gap: var(--sp-3);
 }
 .create-card { text-align: center; }
-#savolCard { display: none; }
+#savolCard { display: block; order: 2; }
+#rasmCard { order: 1; }
 #rasmCard { grid-column: 1 / -1; text-align: left; }
 #rasmCard > h3, #rasmCard > p, #rasmCard > .create-icon { text-align: center; }
 .create-icon {

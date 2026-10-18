@@ -109,6 +109,15 @@ app.post("/api/saqlanganlar", async (req, res) => {
   } catch (e) { res.status(500).json({ xato: e.message }); }
 });
 
+app.delete("/api/saqlanganlar/:id", async (req, res) => {
+  try {
+    const userId = encodeURIComponent(req.query.user_id || "");
+    if (!userId) return res.status(400).json({ xato: "Foydalanuvchi aniqlanmadi" });
+    await supabaseRequest(`/saved_materials?id=eq.${encodeURIComponent(req.params.id)}&user_id=eq.${userId}`, { method: "DELETE" });
+    res.json({ muvaffaqiyat: true });
+  } catch (e) { res.status(500).json({ xato: e.message }); }
+});
+
 // AI savol yaratish (ochiq savollar)
 app.post("/api/savol-yaratish", async (req, res) => {
   try {
@@ -131,17 +140,6 @@ app.post("/api/savol-yaratish", async (req, res) => {
   }
 });
 
-app.post("/api/chat", async (req, res) => {
-  try {
-    const { messages = [] } = req.body;
-    const safeMessages = messages.slice(-12).map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: String(m.content || "").slice(0, 4000) }));
-    const natija = await callOpenRouter([
-      { role: "system", content: "Sen Dars Visual AI platformasining o'zbek tilida javob beradigan ta'limiy yordamchisisan. O'qituvchilarga dars, fan, rasm, slayd va savollar bo'yicha sodda va aniq yordam ber. Javoblarni o'zbek tilida yoz." },
-      ...safeMessages,
-    ], 0.7);
-    res.json({ natija });
-  } catch (e) { res.status(500).json({ xato: e.message }); }
-});
 
 // Dars Race test savollari
 app.post("/api/poyga-savollari", async (req, res) => {

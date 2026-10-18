@@ -209,3 +209,4 @@ function escapeHtml(s) {
 loadProfile();
 loadStats();
 setupSupabaseAuth();
+if (window.location.hash === '#google-login') setTimeout(() => document.getElementById('googleLoginBtn')?.click(), 500);

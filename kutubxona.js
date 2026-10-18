@@ -98,6 +98,7 @@ function renderMaterials() {
         <div class="lib-card-meta">
           <span class="badge badge-primary">${escapeHtml(m.fan)}</span>
           <span>${escapeHtml(m.sinf)}</span>
+          <button class="delete-material" data-material-id="${m.id}" title="O‘chirish">🗑️</button>
         </div>
       </div>
     `;
@@ -130,3 +131,16 @@ function escapeHtml(s) {
 
 renderMaterials();
 loadCloudMaterials();
+
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('.delete-material');
+  if (!button) return;
+  event.stopPropagation();
+  const material = allMaterials.find((item) => String(item.id) === String(button.dataset.materialId));
+  const userId = JSON.parse(localStorage.getItem('dv-profile') || '{}').userId;
+  if (!material) return;
+  if (!userId || String(material.id).startsWith('ai-')) { allMaterials.splice(allMaterials.indexOf(material), 1); renderMaterials(); return; }
+  const response = await fetch(`/api/saqlanganlar/${encodeURIComponent(material.id)}?user_id=${encodeURIComponent(userId)}`, { method: 'DELETE' });
+  if (!response.ok) return showToast('O‘chirishda xatolik yuz berdi');
+  allMaterials.splice(allMaterials.indexOf(material), 1); renderMaterials(); showToast('Material o‘chirildi');
+});
