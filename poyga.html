@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dars Race — Dars Vizual AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="poyga.css">
+  <link rel="stylesheet" href="poyga-input.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">🎓</span><span>Dars Vizual AI</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Bosh sahifa</a></li>
+        <li><a href="slaydlar.html">Slaydlar</a></li>
+        <li><a href="poyga.html" class="active">Dars Race</a></li>
+        <li><a href="kutubxona.html">Saqlanganlar</a></li>
+        <li><a href="profil.html">Profil</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Race Header -->
+  <header class="race-header">
+    <div class="container">
+      <div class="race-header-inner">
+        <div>
+          <span class="badge badge-primary">🏁 Poynga rejimi</span>
+          <h1>Dars Race</h1>
+          <p>Fan va mavzu tanlang, AI o'quvchilaringiz uchun test savollarini yaratadi. Poyngani sinfda o'tkazing!</p>
+        </div>
+        <div class="race-mascot">🏎️</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Setup Panel -->
+  <section class="race-setup" id="setupPanel">
+    <div class="container">
+      <div class="card setup-card">
+        <h2>Poyga sozlamalari</h2>
+        <div class="setup-grid">
+          <div class="form-group">
+            <label class="form-label">Fan tanlang</label>
+            <div class="option-grid" id="fanGrid">
+              <button class="option-tile" data-value="Matematika">🔢<span>Matematika</span></button>
+              <button class="option-tile" data-value="Fizika">⚛️<span>Fizika</span></button>
+              <button class="option-tile" data-value="Kimyo">🧪<span>Kimyo</span></button>
+              <button class="option-tile" data-value="Biologiya">🧬<span>Biologiya</span></button>
+              <button class="option-tile" data-value="Geografiya">🌍<span>Geografiya</span></button>
+              <button class="option-tile" data-value="Tarix">📜<span>Tarix</span></button>
+              <button class="option-tile" data-value="Geometriya">📐<span>Geometriya</span></button>
+              <button class="option-tile" data-value="Informatika">💻<span>Informatika</span></button>
+              <button class="option-tile" data-value="Ona tili">📝<span>Ona tili</span></button>
+              <button class="option-tile" data-value="Adabiyot">📖<span>Adabiyot</span></button>
+              <button class="option-tile" data-value="Ingliz tili">🔤<span>Ingliz tili</span></button>
+              <button class="option-tile" data-value="Huquq">⚖️<span>Huquq</span></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sinf</label>
+            <div class="option-row" id="sinfRow">
+              <button class="option-pill" data-value="1">1-sinf</button>
+              <button class="option-pill" data-value="2">2-sinf</button>
+              <button class="option-pill" data-value="3">3-sinf</button>
+              <button class="option-pill" data-value="4">4-sinf</button>
+              <button class="option-pill" data-value="5">5-sinf</button>
+              <button class="option-pill" data-value="6">6-sinf</button>
+              <button class="option-pill" data-value="7">7-sinf</button>
+              <button class="option-pill" data-value="8">8-sinf</button>
+              <button class="option-pill" data-value="9">9-sinf</button>
+              <button class="option-pill" data-value="10">10-sinf</button>
+              <button class="option-pill" data-value="11">11-sinf</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mavzu</label>
+            <input class="form-input" id="raceMavzu" placeholder="Masalan: Algebrik ifodalar">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Qiyinlik darajasi</label>
+            <div class="option-row" id="darajaRow">
+              <button class="option-pill" data-value="oson">🟢 Oson</button>
+              <button class="option-pill" data-value="orta">🟡 O'rta</button>
+              <button class="option-pill" data-value="qiyin">🔴 Qiyin</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Savollar soni</label>
+            <div class="option-row" id="sonRow">
+              <button class="option-pill" data-value="5">5 ta</button>
+              <button class="option-pill" data-value="10">10 ta</button>
+              <button class="option-pill" data-value="15">15 ta</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg race-start-btn" id="startBtn" onclick="startRace()">🏁 Poygani boshlash</button>
+        <div id="setupStatus"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Panel -->
+  <section class="race-game" id="gamePanel" style="display:none;">
+    <div class="container">
+      <!-- HUD -->
+      <div class="race-hud">
+        <div class="hud-item"><span class="hud-label">1-ishtirokchi</span><span class="hud-val" id="hudBall1">0 m</span></div>
+        <div class="hud-item"><span class="hud-label">2-ishtirokchi</span><span class="hud-val" id="hudBall2">0 m</span></div>
+        <div class="hud-item"><span class="hud-label">Vaqt</span><span class="hud-val" id="hudVaqt">⏱ 0s</span></div>
+      </div>
+
+      <!-- Track -->
+      <div class="race-track">
+        <div class="track-line"></div>
+        <div class="car car-player" id="carPlayer">🏎️ 1</div>
+        <div class="car car-bot" id="carBot">🏎️ 2</div>
+        <div class="finish-flag">🏁</div>
+      </div>
+
+      <!-- Question -->
+      <div class="two-player-questions">
+        <div class="card question-card player-card">
+          <h3>🏎️ 1-ishtirokchi</h3><div class="q-progress"><div class="q-progress-bar" id="qProgressBar1"></div></div>
+          <div class="q-text" id="qText1">Savol yuklanmoqda...</div><div class="q-variants" id="qVariants1"></div>
+        </div>
+        <div class="card question-card player-card">
+          <h3>🏎️ 2-ishtirokchi</h3><div class="q-progress"><div class="q-progress-bar" id="qProgressBar2"></div></div>
+          <div class="q-text" id="qText2">Savol yuklanmoqda...</div><div class="q-variants" id="qVariants2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="race-results" id="resultsPanel" style="display:none;">
+    <div class="container">
+      <div class="card results-card">
+        <div class="results-trophy" id="resultsTrophy">🏆</div>
+        <h2 id="resultsTitle">Poyga tugadi!</h2>
+        <div class="results-stats">
+          <div class="result-stat"><span class="rs-num" id="rsBall">0</span><span class="rs-label">Ball</span></div>
+          <div class="result-stat"><span class="rs-num" id="rsTogri">0/0</span><span class="rs-label">To'g'ri javob</span></div>
+          <div class="result-stat"><span class="rs-num" id="rsVaqt">0s</span><span class="rs-label">Vaqt</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-primary" onclick="resetRace()">🔄 Qaytadan</button>
+          <a href="profil.html" class="btn btn-outline">Profilga o'tish</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
+      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="poyga.js"></script>
+</body>
+</html>

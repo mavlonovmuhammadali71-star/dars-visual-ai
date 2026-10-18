@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="uz">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin panel — Dars Visual AI</title><link rel="stylesheet" href="admin.css"></head>
+<body><main class="panel"><h1>Admin panel</h1><p class="muted">Sayt statistikasi va obunalarni boshqarish</p>
+<section id="login"><input id="password" type="password" placeholder="Admin paroli"><button id="loginBtn">Kirish</button><p id="loginMsg"></p></section>
+<section id="dashboard" hidden><div class="cards"><article><b id="users">0</b><span>Foydalanuvchilar</span></article><article><b id="materials">0</b><span>Saqlangan materiallar</span></article><article><b id="subs">0</b><span>Obunalar</span></article></div><h2>Obunalar</h2><div class="tableWrap"><table><thead><tr><th>Foydalanuvchi</th><th>Tarif</th><th>Holat</th><th>Rasm limiti</th><th>Slayd limiti</th></tr></thead><tbody id="subRows"></tbody></table></div><button id="logoutBtn" class="secondary">Chiqish</button></section></main><script src="admin.js"></script></body></html>

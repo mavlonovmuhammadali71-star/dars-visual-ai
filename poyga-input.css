@@ -1,0 +1,50 @@
+/* ===== Dars Race input qo'shimcha stillari ===== */
+
+.setup-grid .form-input {
+  font-size: 1rem;
+  padding: 14px 16px;
+}
+
+.setup-grid .form-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--neutral-700);
+  margin-bottom: 10px;
+}
+
+#setupStatus {
+  margin-top: var(--sp-2);
+}
+
+.race-start-btn {
+  position: relative;
+  overflow: hidden;
+}
+.race-start-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+.race-start-btn:hover::after { left: 100%; }
+
+.question-card {
+  animation: fadeInUp 0.4s ease;
+}
+
+.q-variant {
+  position: relative;
+  overflow: hidden;
+}
+.q-variant::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: var(--primary-500);
+  opacity: 0.05;
+  transition: width 0.3s ease;
+}
+.q-variant:hover::before { width: 100%; }

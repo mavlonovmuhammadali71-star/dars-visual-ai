@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dars Vizual AI — Ta'limiy AI Platforma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bosh.css">
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+
+<body>
+
+  <!-- Navigatsiya -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-mark">🎓</span>
+        <span>Dars Vizual AI</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Bosh sahifa</a></li>
+        <li><a href="slaydlar.html">Slaydlar</a></li>
+        <li><a href="poyga.html">Dars Race</a></li>
+        <li><a href="kutubxona.html">Saqlanganlar</a></li>
+        <li><a href="profil.html">Profil</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu o'zgartirish">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text fade-in-up">
+        <span class="badge badge-accent">AI bilan ta'lim kelajagi</span>
+        <h1>Dars Vizual AI<br><span class="hero-grad">O'qituvchi uchun aqlli vosita</span></h1>
+        <p>Yagona platformada AI yordamida dars slaydlari yarating, test savollari generatsiya qiling, ta'limiy rasmlar
+          oling va o'quvchilaringiz uchun qiziqarli poynga tuzing.</p>
+        <div class="hero-cta">
+          <a href="slaydlar.html" class="btn btn-primary btn-lg">Slayd yaratish</a>
+          <a href="poyga.html" class="btn btn-outline btn-lg">Dars Race'ga o'tish</a>
+        </div>
+      </div>
+      <div class="hero-visual fade-in-up">
+        <div class="hero-card hero-card-1">
+          <div class="hero-card-icon">📊</div>
+          <div><strong>Dars slaydlari</strong><br><small>AI bilan soniyalarda</small></div>
+        </div>
+        <div class="hero-card hero-card-2">
+          <div class="hero-card-icon">🏁</div>
+          <div><strong>Dars Race</strong><br><small>O'quvchilar uchun poynga</small></div>
+        </div>
+        <div class="hero-card hero-card-3">
+          <div class="hero-card-icon">🎨</div>
+          <div><strong>Vizual rasm</strong><br><small>Sinfdagi diagrammalar</small></div>
+        </div>
+        <div class="hero-card hero-card-4">
+          <div class="hero-card-icon">❓</div>
+          <div><strong>Savol yaratish</strong><br><small>AI bilan avtomatik</small></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Statistika -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" data-stat="materials" data-target="0">0</div>
+        <div class="stat-label">Yaratilgan materiallar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-stat="tests" data-target="0">0</div>
+        <div class="stat-label">Yaratilgan testlar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="12">0</div>
+        <div class="stat-label">Fanlar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="11">0</div>
+        <div class="stat-label">Sinf darajalari</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Yaratish bo'limi -->
+  <section class="create-section" id="yaratish">
+    <div class="container">
+      <div class="section-head">
+        <h2>AI bilan nima yaratasiz?</h2>
+        <p>Quyidagi vositalardan birini tanlang va AI sizga soniyalarda darslik material tayyorlaydi.</p>
+      </div>
+      <div class="create-grid">
+
+        <!-- Savol yaratish -->
+        <div class="card create-card" id="savolCard">
+          <div class="create-icon savol-icon">❓</div>
+          <h3>Savol yaratish</h3>
+          <p>Fan, sinf, mavzu va darajani tanlang — AI dars uchun ochiq savollarni avtomatik yaratadi.</p>
+          <button class="btn btn-primary" onclick="togglePanel('savolPanel')">Boshlash</button>
+          <div class="create-panel" id="savolPanel">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Fan</label>
+                <select class="form-select" id="savolFan">
+                  <option>Matematika</option>
+                  <option>Fizika</option>
+                  <option>Kimyo</option>
+                  <option>Biologiya</option>
+                  <option>Geografiya</option>
+                  <option>Tarix</option>
+                  <option>Geometriya</option>
+                  <option>Informatika</option>
+                  <option>Ona tili</option>
+                  <option>Adabiyot</option>
+                  <option>Ingliz tili</option>
+                  <option>Huquq</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sinf</label>
+                <select class="form-select" id="savolSinf">
+                  <option>1-sinf</option><option>2-sinf</option><option>3-sinf</option>
+                  <option>4-sinf</option><option>5-sinf</option><option>6-sinf</option>
+                  <option>7-sinf</option>
+                  <option>8-sinf</option>
+                  <option>9-sinf</option><option>10-sinf</option><option>11-sinf</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Mavzu</label>
+                <input class="form-input" id="savolMavzu" placeholder="Mavzuni kiriting">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Daraja</label>
+                <select class="form-select" id="savolDaraja">
+                  <option value="oson">Oson</option>
+                  <option value="orta">O'rta</option>
+                  <option value="qiyin">Qiyin</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="savolBtn" onclick="savolYaratish()">Yaratish</button>
+            <div id="savolNatija" class="result-area"></div>
+          </div>
+        </div>
+
+        <!-- Rasm yaratish -->
+        <div class="card create-card" id="rasmCard">
+          <div class="create-icon rasm-icon">🎨</div>
+          <h3>Rasm yaratish</h3>
+          <p>AI dars uchun o‘zbekcha atamalar bilan haqiqiy ta’limiy rasm va uning izohini yaratadi.</p>
+          <button class="btn btn-accent" onclick="togglePanel('rasmPanel')">Boshlash</button>
+          <div class="create-panel" id="rasmPanel">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Fan</label>
+                <select class="form-select" id="rasmFan">
+                  <option>Matematika</option>
+                  <option>Fizika</option>
+                  <option>Kimyo</option>
+                  <option>Biologiya</option>
+                  <option>Geografiya</option>
+                  <option>Tarix</option>
+                  <option>Geometriya</option>
+                  <option>Informatika</option>
+                  <option>Ona tili</option>
+                  <option>Adabiyot</option>
+                  <option>Ingliz tili</option>
+                  <option>Huquq</option>
+
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sinf</label>
+                <select class="form-select" id="rasmSinf">
+                  <option>1-sinf</option>
+                  <option>2-sinf</option>
+                  <option>3-sinf</option>
+                  <option>4-sinf</option>
+                  <option>5-sinf</option>
+                  <option>6-sinf</option>
+                  <option>7-sinf</option>
+                  <option>8-sinf</option>
+                  <option>9-sinf</option>
+                  <option>10-sinf</option>
+                  <option>11-sinf</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Mavzu</label>
+                <input class="form-input" id="rasmMavzu" placeholder="Mavzuni kiriting">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Rasm turi</label>
+                <select class="form-select" id="rasmTuri">
+                  <option>Diagramma</option>
+                  <option>Infografika</option>
+                  <option>Illyustratsiya</option>
+                  <option>Sxema</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Izoh</label>
+              <textarea class="form-textarea" id="rasmIzoh" placeholder="Rasm haqida qo'shimcha ma'lumot"></textarea>
+            </div>
+            <button class="btn btn-accent" id="rasmBtn" onclick="rasmYaratish()">Yaratish</button>
+            <div id="rasmNatija" class="result-area"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bo'limlar kartochkalari -->
+  <section class="sections-grid-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Platforma imkoniyatlari</h2>
+        <p>Har bir bo'lim alohida vizual identifikatsiyaga ega.</p>
+      </div>
+      <div class="sections-grid">
+        <a href="slaydlar.html" class="card section-tile slayd-tile">
+          <div class="tile-icon">📊</div>
+          <h3>Slaydlar</h3>
+          <p>AI bilan dars prezentatsiyasi yarating. Slaydlarni ko'ring va yuklab oling.</p>
+          <span class="btn btn-ghost btn-sm">Ochish →</span>
+        </a>
+        <a href="poyga.html" class="card section-tile race-tile">
+          <div class="tile-icon">🏁</div>
+          <h3>Dars Race</h3>
+          <p>O'quvchilar uchun gamifikatsiyalangan test poyngasi. Fan va mavzu tanlang, AI savol yaratadi.</p>
+          <span class="btn btn-ghost btn-sm">Ochish →</span>
+        </a>
+        <a href="kutubxona.html" class="card section-tile lib-tile">
+          <div class="tile-icon">📚</div>
+          <h3>Saqlanganlar</h3>
+          <p>Dars materiallari, mavzular va saqlangan kontent. Qidiruv va kategoriyalar.</p>
+          <span class="btn btn-ghost btn-sm">Ochish →</span>
+        </a>
+        <a href="profil.html" class="card section-tile prof-tile">
+          <div class="tile-icon">👤</div>
+          <h3>Profil</h3>
+          <p>O'qituvchi profili, dars statistikasi va yutuqlar. Sozlamalar va dark mode.</p>
+          <span class="btn btn-ghost btn-sm">Ochish →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="nav-logo" style="color:#fff;margin-bottom:8px;">
+          <span class="logo-mark">DV</span> Dars Vizual AI
+        </div>
+        <p>AI bilan ta'lim kelajagi.</p>
+      </div>
+      <div>
+        <h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4>
+        <p><a href="index.html">Bosh sahifa</a></p>
+        <p><a href="slaydlar.html">Slaydlar</a></p>
+        <p><a href="poyga.html">Dars Race</a></p>
+        <p><a href="kutubxona.html">Saqlanganlar</a></p>
+        <p><a href="profil.html">Profil</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

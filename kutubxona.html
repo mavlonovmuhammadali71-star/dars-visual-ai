@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saqlanganlar — Dars Vizual AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="kutubxona.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">🎓</span><span>Dars Vizual AI</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Bosh sahifa</a></li>
+        <li><a href="slaydlar.html">Slaydlar</a></li>
+        <li><a href="poyga.html">Dars Race</a></li>
+        <li><a href="kutubxona.html" class="active">Saqlanganlar</a></li>
+        <li><a href="profil.html">Profil</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="lib-header">
+    <div class="container">
+      <span class="badge badge-success">💾 Saqlanganlar</span>
+      <h1>Saqlangan dars materiallari</h1>
+      <p>Faqat siz saqlagan rasmlar va slaydlar shu yerda ko‘rinadi.</p>
+      <div class="lib-search-box">
+        <input class="form-input lib-search" id="libSearch" placeholder="🔍 Dars mavzusi yoki kalit so'z bo'yicha qidiring...">
+      </div>
+    </div>
+  </header>
+
+  <section class="lib-section">
+    <div class="container lib-layout">
+      <!-- Sidebar kategoriyalar -->
+      <aside class="lib-sidebar">
+        <h3>Kategoriyalar</h3>
+        <div class="cat-list" id="catList">
+          <button class="cat-item active" data-cat="all">📚 Barchasi</button>
+          <button class="cat-item" data-cat="Matematika">🔢 Matematika</button>
+          <button class="cat-item" data-cat="Fizika">⚛️ Fizika</button>
+          <button class="cat-item" data-cat="Kimyo">🧪 Kimyo</button>
+          <button class="cat-item" data-cat="Biologiya">🧬 Biologiya</button>
+          <button class="cat-item" data-cat="Geografiya">🌍 Geografiya</button>
+          <button class="cat-item" data-cat="Tarix">📜 Tarix</button>
+        </div>
+      </aside>
+
+      <!-- Kontent -->
+      <div class="lib-content">
+        <div class="lib-toolbar">
+          <span class="lib-count" id="libCount">0 ta material</span>
+        </div>
+        <div class="lib-grid" id="libGrid"></div>
+        <div id="libEmpty" class="state-box state-empty" style="display:none;">
+          <div style="font-size:3rem;margin-bottom:8px;">📭</div>
+          <p>Hozircha saqlangan materiallar yo‘q. Rasm yoki slayd yaratib, “Saqlash” tugmasini bosing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
+      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="kutubxona.js"></script>
+</body>
+</html>

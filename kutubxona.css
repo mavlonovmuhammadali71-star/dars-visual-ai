@@ -1,0 +1,110 @@
+/* ===== Kutubxona dizayni ===== */
+
+.lib-header {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+  padding: var(--sp-5) 0;
+  color: #fff;
+  text-align: center;
+}
+.lib-header h1 { color: #fff; font-size: 2.2rem; margin: var(--sp-1) 0; }
+.lib-header p { color: rgba(255,255,255,0.9); margin-bottom: var(--sp-3); }
+.lib-search-box { max-width: 600px; margin: 0 auto; }
+.lib-search {
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+}
+
+.lib-section { padding: var(--sp-4) 0; }
+.lib-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+}
+
+.lib-sidebar {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-2));
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-2);
+  box-shadow: var(--shadow-sm);
+}
+.lib-sidebar h3 { font-size: 1rem; margin-bottom: var(--sp-1); padding: 0 8px; }
+.cat-list { display: flex; flex-direction: column; gap: 4px; }
+.cat-item {
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--neutral-600);
+  transition: all var(--tr-fast);
+}
+.cat-item:hover { background: var(--neutral-100); color: var(--neutral-800); }
+.cat-item.active { background: var(--primary-500); color: #fff; font-weight: 600; }
+
+.lib-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-2);
+}
+.lib-count { color: var(--neutral-500); font-weight: 600; font-size: 0.9rem; }
+
+.lib-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-2);
+}
+.lib-card {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--tr-base);
+  cursor: pointer;
+}
+.lib-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary-200); }
+.lib-card-cover {
+  height: 120px;
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+  position: relative;
+}
+.lib-card-cover.math { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.lib-card-cover.phys { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+.lib-card-cover.chem { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+.lib-card-cover.bio { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+.lib-card-cover.geo { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.lib-card-cover.hist { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+.lib-card-cover.gen { background: var(--grad-card); }
+.lib-card-body { padding: var(--sp-2); }
+.lib-card-body h4 { font-size: 1rem; margin-bottom: 4px; }
+.lib-card-body p { font-size: 0.85rem; color: var(--neutral-500); line-height: 1.4; }
+.lib-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--sp-1);
+  padding-top: var(--sp-1);
+  border-top: 1px solid var(--neutral-200);
+}
+.lib-card-meta .badge { font-size: 0.7rem; }
+.lib-card-meta span { font-size: 0.75rem; color: var(--neutral-400); }
+
+@media (max-width: 768px) {
+  .lib-layout { grid-template-columns: 1fr; }
+  .lib-sidebar { position: static; }
+  .cat-list { flex-direction: row; flex-wrap: wrap; }
+  .cat-item { flex: 1 1 auto; }
+}

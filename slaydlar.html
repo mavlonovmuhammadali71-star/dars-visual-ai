@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slaydlar — Dars Vizual AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="slayd.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">🎓</span><span>Dars Vizual AI</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Bosh sahifa</a></li>
+        <li><a href="slaydlar.html" class="active">Slaydlar</a></li>
+        <li><a href="poyga.html">Dars Race</a></li>
+        <li><a href="kutubxona.html">Saqlanganlar</a></li>
+        <li><a href="profil.html">Profil</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="slayd-hero">
+    <div class="container slayd-hero-inner">
+      <div class="slayd-hero-text">
+        <span class="badge badge-primary">📊 Dars slaydlari</span>
+        <h1>AI bilan dars prezentatsiyasi</h1>
+        <p>Fan, sinf va mavzuni tanlang — AI soniyalarda o'qituvchi uchun professional dars slaydlarini yaratadi. Slaydlarni ko'ring, tahrirlang va sinfda ko'rsating.</p>
+      </div>
+      <div class="slayd-hero-visual">
+        <div class="hero-slide-card">
+          <div class="hsc-bar"></div>
+          <div class="hsc-content">
+            <div class="hsc-line w-80"></div>
+            <div class="hsc-line w-60"></div>
+            <div class="hsc-line w-90"></div>
+          </div>
+        </div>
+        <div class="hero-slide-card card-2">
+          <div class="hsc-bar bar-2"></div>
+          <div class="hsc-content">
+            <div class="hsc-circle"></div>
+            <div class="hsc-line w-70"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Setup -->
+  <section class="slayd-setup" id="setupPanel">
+    <div class="container">
+      <div class="card slayd-setup-card">
+        <h2>Slayd sozlamalari</h2>
+        <div class="slayd-form-grid">
+          <div class="form-group">
+            <label class="form-label">Fan</label>
+            <select class="form-select" id="slaydFan">
+              <option>Matematika</option><option>Fizika</option><option>Kimyo</option>
+              <option>Biologiya</option><option>Geografiya</option><option>Tarix</option>
+              <option>Geometriya</option><option>Informatika</option><option>Ona tili</option>
+              <option>Adabiyot</option><option>Ingliz tili</option><option>Huquq</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sinf</label>
+            <select class="form-select" id="slaydSinf">
+              <option>1-sinf</option><option>2-sinf</option><option>3-sinf</option>
+              <option>4-sinf</option><option>5-sinf</option><option>6-sinf</option>
+              <option>7-sinf</option><option>8-sinf</option>
+              <option>9-sinf</option><option>10-sinf</option><option>11-sinf</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mavzu</label>
+            <input class="form-input" id="slaydMavzu" placeholder="Masalan: Algebrik ifodalar">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Slaydlar soni</label>
+            <select class="form-select" id="slaydSon">
+              <option value="5">5 slayd</option>
+              <option value="8" selected>8 slayd</option>
+              <option value="12">12 slayd</option>
+            </select>
+          </div>
+          <div class="form-group slayd-full">
+            <label class="form-label">Uslub</label>
+            <div class="uslub-row" id="uslubRow">
+              <button class="uslub-pill selected" data-value="aniq">📋 Aniq va tizimli</button>
+              <button class="uslub-pill" data-value="interaktiv">🎯 Interaktiv</button>
+              <button class="uslub-pill" data-value="vizual">🎨 Vizual</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg slayd-gen-btn" id="genBtn" onclick="slaydYaratish()">✨ Slaydlarni yaratish</button>
+        <div id="setupStatus"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Viewer -->
+  <section class="slayd-viewer" id="viewerPanel" style="display:none;">
+    <div class="container">
+      <div class="viewer-toolbar">
+        <button class="btn btn-ghost btn-sm" onclick="ortgaQaytish()">← Sozlamaga qaytish</button>
+        <div class="viewer-nav">
+          <button class="btn btn-ghost btn-sm nav-btn" id="prevBtn" onclick="oldingiSlayd()">← Oldingi</button>
+          <span class="slide-counter" id="slideCounter">1 / 1</span>
+          <button class="btn btn-ghost btn-sm nav-btn" id="nextBtn" onclick="keyingiSlayd()">Keyingi →</button>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="yuklabOlish()">📥 Yuklab olish</button>
+        <button class="btn btn-accent btn-sm" onclick="saqlashSlaydlar()">💾 Saqlash</button>
+      </div>
+
+      <div class="slide-stage" id="slideStage">
+        <div class="slide-card" id="slideCard">
+          <div class="slide-number" id="slideNumber">1</div>
+          <h2 class="slide-title" id="slideTitle">Sarlavha</h2>
+          <div class="slide-content" id="slideContent"></div>
+          <div class="slide-teacher-note" id="slideNote"></div>
+        </div>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="slide-thumbs" id="slideThumbs"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
+      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="slayd.js"></script>
+</body>
+</html>

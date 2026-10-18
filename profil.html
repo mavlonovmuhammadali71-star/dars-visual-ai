@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil — Dars Vizual AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">🎓</span><span>Dars Vizual AI</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Bosh sahifa</a></li>
+        <li><a href="slaydlar.html">Slaydlar</a></li>
+        <li><a href="poyga.html">Dars Race</a></li>
+        <li><a href="kutubxona.html">Saqlanganlar</a></li>
+        <li><a href="profil.html" class="active">Profil</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="prof-header">
+    <div class="container prof-header-inner">
+      <div class="prof-avatar-wrap">
+        <div class="prof-avatar" id="profAvatar">U</div>
+        <label class="avatar-upload" title="Profil rasmini tanlash">📷
+          <input type="file" id="avatarInput" accept="image/png,image/jpeg,image/webp" onchange="uploadAvatar(event)">
+        </label>
+      </div>
+      <div class="prof-info">
+        <h1 id="profName">O'qituvchi</h1>
+        <p id="profEmail">oqituvchi@darsvizual.uz</p>
+        <div class="prof-badges">
+          <span class="badge badge-primary">👨‍🏫 O'qituvchi</span>
+          <span class="badge badge-accent" id="profLevel">Daraja 1</span>
+        </div>
+      </div>
+      <div class="prof-header-actions">
+        <button class="btn btn-outline btn-sm" id="googleLoginBtn" onclick="loginWithGoogle()">🔐 Google orqali kirish</button>
+        <button class="btn btn-outline btn-sm" onclick="toggleEdit()">✏️ Tahrirlash</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="prof-section">
+    <div class="container">
+      <!-- Statistika kartochkalari -->
+      <div class="prof-stats-grid">
+        <div class="card prof-stat-card">
+          <div class="ps-icon">🎨</div>
+          <div class="ps-num" id="psBall">0</div>
+          <div class="ps-label">Yaratilgan rasmlar</div>
+        </div>
+        <div class="card prof-stat-card">
+          <div class="ps-icon">📊</div>
+          <div class="ps-num" id="psRaces">0</div>
+          <div class="ps-label">Yaratilgan slaydlar</div>
+        </div>
+      </div>
+
+      <!-- Sozlamalar -->
+      <div class="card prof-settings">
+        <h3>⚙️ Sozlamalar</h3>
+        <div class="setting-row">
+          <div><strong>Qora rejim</strong><br><small>Ko'rinishni o'zgartiring</small></div>
+          <button class="btn btn-ghost btn-sm" id="settingTheme" onclick="toggleThemeSetting()">Yoqish</button>
+        </div>
+        <div class="setting-row">
+          <div><strong>Ism</strong><br><small>Profildagi ismingiz</small></div>
+          <input class="form-input setting-input" id="settingName" placeholder="Ismingiz">
+        </div>
+        <button class="btn btn-primary" onclick="saveSettings()">Saqlash</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Edit modal -->
+  <div class="modal-overlay" id="editModal" style="display:none;">
+    <div class="card modal-card">
+      <h3>Profilni tahrirlash</h3>
+      <div class="form-group">
+        <label class="form-label">Ism</label>
+        <input class="form-input" id="editName">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="editEmail">
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="toggleEdit()">Bekor qilish</button>
+        <button class="btn btn-primary" onclick="saveProfile()">Saqlash</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
+      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="profil.js"></script>
+</body>
+</html>
