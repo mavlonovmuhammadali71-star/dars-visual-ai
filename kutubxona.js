@@ -49,12 +49,18 @@ async function loadCloudMaterials() {
   try {
     const userId = JSON.parse(localStorage.getItem('dv-profile') || '{}').userId || 'anonymous';
     const response = await fetch(`/api/saqlanganlar?user_id=${encodeURIComponent(userId)}`);
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(error.xato || 'Baza bilan aloqa o‘rnatilmadi');
+    }
     const data = await response.json();
     if (Array.isArray(data.materials)) {
       allMaterials.splice(0, allMaterials.length, ...data.materials.map(m => ({ id: m.id, fan: m.fan, sinf: m.sinf, mavzu: m.mavzu, desc: m.desc_text || '', icon: m.icon || '💾', cover: m.cover || 'math' })));
       renderMaterials();
     }
-  } catch {}
+  } catch (error) {
+    showToast(`Saqlanganlarni yuklashda xatolik: ${error.message}`);
+  }
 }
 
 let activeCat = 'all';

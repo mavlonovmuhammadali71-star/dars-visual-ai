@@ -156,10 +156,19 @@
   gap: var(--sp-3);
 }
 .create-card { text-align: center; }
+#savolCard,
+#rasmCard {
+  grid-column: 1 / -1;
+  text-align: left;
+}
 #savolCard { display: block; order: 2; }
 #rasmCard { order: 1; }
-#rasmCard { grid-column: 1 / -1; text-align: left; }
-#rasmCard > h3, #rasmCard > p, #rasmCard > .create-icon { text-align: center; }
+#savolCard > h3,
+#savolCard > p,
+#savolCard > .create-icon,
+#rasmCard > h3,
+#rasmCard > p,
+#rasmCard > .create-icon { text-align: center; }
 .create-icon {
   width: 72px; height: 72px;
   margin: 0 auto var(--sp-2);
@@ -253,3 +262,28 @@
   .hero-text h1 { font-size: 1.8rem; }
   .stats-grid { grid-template-columns: 1fr; }
 }
+/* Qanday foydalaniladi slayderi */
+.how-to-section { padding: 72px 0 40px; }
+.how-to-head { max-width: 700px; margin: 0 auto 28px; text-align: center; }
+.how-to-head .badge { display: inline-flex; margin-bottom: 12px; }
+.how-to-slider { display: grid; grid-template-columns: minmax(260px, .9fr) 1.1fr; gap: 44px; align-items: center; max-width: 980px; margin: 0 auto; padding: 28px; border: 1px solid var(--primary-100); border-radius: var(--radius-xl); background: var(--grad-card); box-shadow: var(--shadow-lg); overflow: hidden; }
+.how-to-visual { min-height: 270px; display: grid; place-items: center; position: relative; border-radius: var(--radius-lg); background: linear-gradient(145deg, #dbeafe, #ede9fe); overflow: hidden; }
+.how-to-visual::before, .how-to-visual::after { content: ''; position: absolute; border-radius: 50%; animation: howFloat 5s ease-in-out infinite; }
+.how-to-visual::before { width: 190px; height: 190px; background: rgba(59,130,246,.22); top: -60px; right: -40px; }
+.how-to-visual::after { width: 140px; height: 140px; background: rgba(139,92,246,.2); bottom: -45px; left: -30px; animation-delay: -2s; }
+.how-to-icon { position: relative; z-index: 1; font-size: 82px; filter: drop-shadow(0 12px 10px rgba(30,64,175,.2)); animation: howPulse 2.8s ease-in-out infinite; }
+.how-to-orb { position: absolute; z-index: 2; top: 18px; left: 18px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: white; font-weight: 800; background: var(--grad-primary); box-shadow: var(--shadow-md); }
+.how-to-step-label { color: var(--primary-600); font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.how-to-content h3 { margin: 9px 0 10px; font-size: clamp(1.45rem, 3vw, 2.1rem); }
+.how-to-content p { color: var(--neutral-600); max-width: 520px; min-height: 54px; }
+.how-to-progress { height: 6px; margin: 22px 0 18px; border-radius: 20px; background: var(--primary-100); overflow: hidden; }
+.how-to-progress span { display: block; height: 100%; width: 25%; border-radius: inherit; background: var(--grad-primary); transition: width .45s ease; }
+.how-to-controls { display: flex; align-items: center; gap: 14px; }
+.how-to-arrow { width: 40px; height: 40px; border: 0; border-radius: 50%; color: white; font-size: 1.3rem; cursor: pointer; background: var(--primary-600); transition: transform .2s, background .2s; }
+.how-to-arrow:hover { transform: translateY(-2px); background: var(--primary-700); }
+.how-to-dots { display: flex; gap: 7px; flex: 1; justify-content: center; }
+.how-to-dot { width: 9px; height: 9px; border: 0; border-radius: 50%; padding: 0; cursor: pointer; background: var(--primary-200); transition: all .25s; }
+.how-to-dot.active { width: 26px; border-radius: 10px; background: var(--primary-600); }
+@keyframes howFloat { 50% { transform: translate(15px, 12px) scale(1.08); } }
+@keyframes howPulse { 50% { transform: translateY(-8px) rotate(3deg) scale(1.06); } }
+@media (max-width: 700px) { .how-to-slider { grid-template-columns: 1fr; gap: 22px; padding: 18px; } .how-to-visual { min-height: 190px; } .how-to-icon { font-size: 62px; } .how-to-section { padding-top: 48px; } }

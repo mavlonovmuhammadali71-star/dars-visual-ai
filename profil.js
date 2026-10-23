@@ -27,16 +27,22 @@ async function setupSupabaseAuth() {
       loadProfile();
       document.getElementById('googleLoginBtn').textContent = '✅ Google orqali kirdingiz';
     }
-  } catch (error) { console.warn('Supabase Auth sozlanmadi', error); }
+  } catch (error) { console.warn('Supabase Auth sozlanmadi', error); showToast('Google login ulanishida xatolik'); }
 }
 
 async function loginWithGoogle() {
-  if (!supabaseClient) return showToast('Google login sozlanmagan');
+  return showToast('Google orqali ro‘yxatdan o‘tish vaqtincha o‘chirilgan');
+  /*
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const redirectTo = isLocal
+    ? `${window.location.origin}/profil.html`
+    : 'https://dars-visual-ai.onrender.com/profil.html';
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.origin + '/profil.html' },
+    options: { redirectTo },
   });
   if (error) showToast(`Kirish xatosi: ${error.message}`);
+  */
 }
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);

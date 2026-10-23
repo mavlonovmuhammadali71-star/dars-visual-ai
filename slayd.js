@@ -57,7 +57,10 @@ async function slaydYaratish() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fan, sinf, mavzu, slaydSon, uslub: selectedUslub }),
     });
-    const data = await res.json();
+    const raw = await res.text();
+    let data;
+    try { data = raw ? JSON.parse(raw) : {}; } catch { throw new Error(`Server noto‘g‘ri javob qaytardi (${res.status})`); }
+    if (!res.ok) throw new Error(data.xato || `Server xatosi (${res.status})`);
     if (data.xato) throw new Error(data.xato);
     if (!data.slaydlar || !data.slaydlar.length) throw new Error('Slaydlar yaratilmadi');
 
@@ -89,6 +92,12 @@ function renderSlide() {
 
   document.getElementById('slideNumber').textContent = currentSlide + 1;
   document.getElementById('slideTitle').textContent = s.sarlavha || s.title || 'Slayd';
+  const imageEl = document.getElementById('slideImage');
+  if (imageEl) {
+    imageEl.src = s.rasm || '';
+    imageEl.alt = s.sarlavha || 'Ta’limiy slayd rasmi';
+    imageEl.style.display = s.rasm ? 'block' : 'none';
+  }
 
   const contentEl = document.getElementById('slideContent');
   const kontent = s.kontent || s.content || '';

@@ -26,35 +26,47 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SUPABASE_REST_URL = SUPABASE_URL ? `${SUPABASE_URL}/rest/v1` : null;
+const SUPABASE_TIMEOUT_MS = 10000;
 
 async function supabaseRequest(path, options = {}) {
   if (!SUPABASE_REST_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase sozlanmagan");
-  const response = await fetch(`${SUPABASE_REST_URL}${path}`, {
-    ...options,
-    headers: {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), SUPABASE_TIMEOUT_MS);
+  let response;
+  try {
+    response = await fetch(`${SUPABASE_REST_URL}${path}`, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+        ...(options.headers || {}),
+      },
+    });
+  } catch (error) {
+    if (error.name === "AbortError") throw new Error("Supabase bazasi 10 soniyada javob bermadi");
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
   if (!response.ok) throw new Error(`Supabase xatosi: ${response.status} ${await response.text()}`);
   return response.status === 204 ? null : response.json();
 }
 
 async function callOpenRouter(messages, temperature = 0.7) {
-  const res = await fetch(OPENROUTER_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
-      messages,
-      temperature,
-    }),
-  });
+  if (!OPENROUTER_API_KEY) throw new Error("OPENROUTER_API_KEY .env faylida sozlanmagan");
+  let res;
+  try {
+    res = await fetch(OPENROUTER_URL, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${OPENROUTER_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "openai/gpt-4o-mini", messages, temperature }),
+    });
+  } catch (error) {
+    const code = error.cause?.code || error.code;
+    throw new Error(`OpenRouterga ulanish amalga oshmadi: ${code || error.message}`);
+  }
   if (!res.ok) {
     const txt = await res.text();
     throw new Error(`OpenRouter xatosi: ${res.status} ${txt}`);
@@ -64,8 +76,16 @@ async function callOpenRouter(messages, temperature = 0.7) {
 }
 
 // Sog'lik tekshiruvi
-app.get("/api/holat", (req, res) => {
-  res.json({ holat: "ishlamoqda", baza: Boolean(SUPABASE_REST_URL), vaqt: new Date().toISOString() });
+app.get("/api/holat", async (req, res) => {
+  let baza = false;
+  let bazaXatosi = null;
+  try {
+    await supabaseRequest("/saved_materials?select=id&limit=1");
+    baza = true;
+  } catch (error) {
+    bazaXatosi = error.message;
+  }
+  res.status(baza ? 200 : 503).json({ holat: baza ? "ishlamoqda" : "baza xatosi", baza, bazaXatosi, vaqt: new Date().toISOString() });
 });
 
 app.get("/api/config", (req, res) => {
@@ -100,6 +120,7 @@ app.get("/api/saqlanganlar", async (req, res) => {
 app.post("/api/saqlanganlar", async (req, res) => {
   try {
     const { user_id, fan, sinf, mavzu, desc_text, icon, cover } = req.body;
+    if (!fan || !sinf || !mavzu) return res.status(400).json({ xato: "Fan, sinf va mavzu kiritilishi shart" });
     const data = await supabaseRequest("/saved_materials", {
       method: "POST",
       headers: { Prefer: "return=representation" },
@@ -122,6 +143,7 @@ app.delete("/api/saqlanganlar/:id", async (req, res) => {
 app.post("/api/savol-yaratish", async (req, res) => {
   try {
     const { fan, sinf, mavzu, daraja } = req.body;
+    if (!fan || !sinf || !mavzu || !daraja) return res.status(400).json({ xato: "Fan, sinf, mavzu va qiyinlik darajasi kiritilishi shart" });
     const messages = [
       {
         role: "system",
@@ -145,6 +167,10 @@ app.post("/api/savol-yaratish", async (req, res) => {
 app.post("/api/poyga-savollari", async (req, res) => {
   try {
     const { fan, sinf, mavzu, daraja, son } = req.body;
+    const count = Number(son);
+    if (!fan || !sinf || !mavzu || !daraja || !Number.isInteger(count) || count < 1 || count > 30) {
+      return res.status(400).json({ xato: "Fan, sinf, mavzu, qiyinlik va 1–30 oralig‘idagi savollar soni kiritilishi shart" });
+    }
     const messages = [
       {
         role: "system",
@@ -153,7 +179,7 @@ app.post("/api/poyga-savollari", async (req, res) => {
       },
       {
         role: "user",
-        content: `Fan: ${fan}, Sinf: ${sinf}, Mavzu: ${mavzu}, Qiyinlik: ${daraja}. O'qituvchi dars uchun ${son} ta test savoli yarat. Har birida 4 ta variant. Faqat JSON qaytar.`,
+        content: `Fan: ${fan}, Sinf: ${sinf}, Mavzu: ${mavzu}, Qiyinlik: ${daraja}. O'qituvchi dars uchun ${count} ta test savoli yarat. Har birida 4 ta variant. Faqat JSON qaytar.`,
       },
     ];
     const content = await callOpenRouter(messages, 0.5);
@@ -170,10 +196,26 @@ app.post("/api/poyga-savollari", async (req, res) => {
   }
 });
 
+app.post("/api/bellashuv-savollari", async (req, res) => {
+  try {
+    const { fan, sinf } = req.body;
+    if (!fan || !sinf) return res.status(400).json({ xato: "Fan va sinfni tanlang" });
+    const content = await callOpenRouter([
+      { role: "system", content: "Sen o‘zbek tilida 2 kishilik tezkor ta’limiy bellashuv uchun savollar yaratuvchi yordamchisan. Faqat JSON qaytar: [{\"savol\":\"...\",\"variantlar\":[\"A\",\"B\",\"C\",\"D\"],\"togri\":0}]." },
+      { role: "user", content: `${fan} fanidan ${sinf} sinf darajasiga mos, turli mavzulardan 30 soniyalik bellashuv uchun 20 ta qisqa test savoli yarat. Har birida 4 variant bo‘lsin. Faqat JSON qaytar.` },
+    ], 0.4);
+    const match = content.match(/\[[\s\S]*\]/);
+    const questions = match ? JSON.parse(match[0]) : [];
+    res.json({ savollar: Array.isArray(questions) ? questions.slice(0, 20) : [] });
+  } catch (e) { res.status(500).json({ xato: e.message }); }
+});
+
 // Rasm yaratish
 app.post("/api/rasm-yaratish", async (req, res) => {
   try {
     const { fan, sinf, mavzu, rasmTuri, izoh } = req.body;
+    if (!fan || !sinf || !mavzu || !rasmTuri) return res.status(400).json({ xato: "Fan, sinf, mavzu va rasm turi kiritilishi shart" });
+    if (!POLLINATIONS_API_KEY && !OPENROUTER_API_KEY) return res.status(503).json({ xato: "Rasm yaratish API kaliti sozlanmagan" });
     const prompt = `O'zbek tilidagi ta'limiy ${rasmTuri}. Fan: ${fan}. Sinf: ${sinf}. Mavzu: ${mavzu}. Rasm ichidagi barcha sarlavha, yozuv, belgi va atamalar faqat o'zbek tilida, lotin yozuvida bo'lsin. Rasm aniq, sodda va o'quvchilar uchun tushunarli bo'lsin. ${izoh || "Darsda foydalanish uchun ilmiy jihatdan to'g'ri va chiroyli ko'rinish."}`;
     if (POLLINATIONS_API_KEY) {
       const url = `https://gen.pollinations.ai/image/${encodeURIComponent(prompt)}?model=${encodeURIComponent(POLLINATIONS_IMAGE_MODEL)}`;
@@ -218,6 +260,10 @@ app.post("/api/rasm-yaratish", async (req, res) => {
 app.post("/api/slayd-yaratish", async (req, res) => {
   try {
     const { fan, sinf, mavzu, slaydSon, uslub } = req.body;
+    const count = Number(slaydSon);
+    if (!fan || !sinf || !mavzu || !uslub || !Number.isInteger(count) || count < 2 || count > 30) {
+      return res.status(400).json({ xato: "Fan, sinf, mavzu, uslub va 2–30 oralig‘idagi slaydlar soni kiritilishi shart" });
+    }
     const messages = [
       {
         role: "system",
@@ -226,7 +272,7 @@ app.post("/api/slayd-yaratish", async (req, res) => {
       },
       {
         role: "user",
-        content: `Fan: ${fan}, Sinf: ${sinf}, Mavzu: ${mavzu}, Slaydlar soni: ${slaydSon}, Uslub: ${uslub}. O'qituvchi sinfda ko'rsatishi uchun ${slaydSon} ta dars slaydi yarat. Birinchi slayd kirish, oxirgisi xulosa bo'lsin. Faqat JSON qaytar.`,
+        content: `Fan: ${fan}, Sinf: ${sinf}, Mavzu: ${mavzu}, Slaydlar soni: ${count}, Uslub: ${uslub}. O'qituvchi sinfda ko'rsatishi uchun ${count} ta dars slaydi yarat. Birinchi slayd kirish, oxirgisi xulosa bo'lsin. Faqat JSON qaytar.`,
       },
     ];
     const content = await callOpenRouter(messages, 0.6);
@@ -237,6 +283,13 @@ app.post("/api/slayd-yaratish", async (req, res) => {
       const m = content.match(/\[[\s\S]*\]/);
       slaydlar = m ? JSON.parse(m[0]) : [];
     }
+    if (!Array.isArray(slaydlar) || !slaydlar.length) throw new Error("AI slaydlar ro‘yxatini qaytarmadi");
+    slaydlar = slaydlar.slice(0, count).map((slide, index) => ({
+      ...slide,
+      rasm: POLLINATIONS_API_KEY
+        ? `https://gen.pollinations.ai/image/${encodeURIComponent(`Ta’limiy infografika, ${fan}, ${sinf}-sinf, mavzu: ${mavzu}. Slayd ${index + 1}: ${slide.sarlavha || "asosiy tushuncha"}. Rasmda tushunarli vizual belgilar, diagramma va o‘zbekcha qisqa yozuvlar bo‘lsin. Zamonaviy, toza, dars uchun mos dizayn.`)}?model=${encodeURIComponent(POLLINATIONS_IMAGE_MODEL)}&width=1280&height=720&nologo=true`
+        : null,
+    }));
     res.json({ slaydlar });
   } catch (e) {
     res.status(500).json({ xato: e.message });

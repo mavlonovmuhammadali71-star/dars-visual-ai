@@ -66,7 +66,14 @@ async function startRace() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...raceState, son: Number(raceState.son) * 2 }),
     });
-    const data = await res.json();
+    const raw = await res.text();
+    let data;
+    try {
+      data = raw ? JSON.parse(raw) : {};
+    } catch {
+      throw new Error(`Server noto‘g‘ri javob qaytardi (${res.status})`);
+    }
+    if (!res.ok) throw new Error(data.xato || `Server xatosi (${res.status})`);
     if (data.xato) throw new Error(data.xato);
     if (!data.savollar || data.savollar.length < 2) throw new Error('Savollar yaratilmadi');
 

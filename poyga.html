@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="poyga.css">
   <link rel="stylesheet" href="poyga-input.css">
 </head>
+
 <body>
 
   <nav class="navbar">
@@ -19,8 +21,8 @@
         <li><a href="index.html">Bosh sahifa</a></li>
         <li><a href="slaydlar.html">Slaydlar</a></li>
         <li><a href="poyga.html" class="active">Dars Race</a></li>
+        <li><a href="bellashuv.html">Bellashuv</a></li>
         <li><a href="kutubxona.html">Saqlanganlar</a></li>
-        <li><a href="profil.html#google-login">🔐 Google orqali kirish</a></li><li><a href="profil.html">Profil</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
@@ -103,7 +105,8 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary btn-lg race-start-btn" id="startBtn" onclick="startRace()">🏁 Poygani boshlash</button>
+        <button class="btn btn-primary btn-lg race-start-btn" id="startBtn" onclick="startRace()">🏁 Poygani
+          boshlash</button>
         <div id="setupStatus"></div>
       </div>
     </div>
@@ -114,8 +117,10 @@
     <div class="container">
       <!-- HUD -->
       <div class="race-hud">
-        <div class="hud-item"><span class="hud-label">1-ishtirokchi</span><span class="hud-val" id="hudBall1">0 m</span></div>
-        <div class="hud-item"><span class="hud-label">2-ishtirokchi</span><span class="hud-val" id="hudBall2">0 m</span></div>
+        <div class="hud-item"><span class="hud-label">1-ishtirokchi</span><span class="hud-val" id="hudBall1">0 m</span>
+        </div>
+        <div class="hud-item"><span class="hud-label">2-ishtirokchi</span><span class="hud-val" id="hudBall2">0 m</span>
+        </div>
         <div class="hud-item"><span class="hud-label">Vaqt</span><span class="hud-val" id="hudVaqt">⏱ 0s</span></div>
       </div>
 
@@ -130,12 +135,20 @@
       <!-- Question -->
       <div class="two-player-questions">
         <div class="card question-card player-card">
-          <h3>🏎️ 1-ishtirokchi</h3><div class="q-progress"><div class="q-progress-bar" id="qProgressBar1"></div></div>
-          <div class="q-text" id="qText1">Savol yuklanmoqda...</div><div class="q-variants" id="qVariants1"></div>
+          <h3>🏎️ 1-ishtirokchi</h3>
+          <div class="q-progress">
+            <div class="q-progress-bar" id="qProgressBar1"></div>
+          </div>
+          <div class="q-text" id="qText1">Savol yuklanmoqda...</div>
+          <div class="q-variants" id="qVariants1"></div>
         </div>
         <div class="card question-card player-card">
-          <h3>🏎️ 2-ishtirokchi</h3><div class="q-progress"><div class="q-progress-bar" id="qProgressBar2"></div></div>
-          <div class="q-text" id="qText2">Savol yuklanmoqda...</div><div class="q-variants" id="qVariants2"></div>
+          <h3>🏎️ 2-ishtirokchi</h3>
+          <div class="q-progress">
+            <div class="q-progress-bar" id="qProgressBar2"></div>
+          </div>
+          <div class="q-text" id="qText2">Savol yuklanmoqda...</div>
+          <div class="q-variants" id="qVariants2"></div>
         </div>
       </div>
     </div>
@@ -149,7 +162,8 @@
         <h2 id="resultsTitle">Poyga tugadi!</h2>
         <div class="results-stats">
           <div class="result-stat"><span class="rs-num" id="rsBall">0</span><span class="rs-label">Ball</span></div>
-          <div class="result-stat"><span class="rs-num" id="rsTogri">0/0</span><span class="rs-label">To'g'ri javob</span></div>
+          <div class="result-stat"><span class="rs-num" id="rsTogri">0/0</span><span class="rs-label">To'g'ri
+              javob</span></div>
           <div class="result-stat"><span class="rs-num" id="rsVaqt">0s</span><span class="rs-label">Vaqt</span></div>
         </div>
         <div class="results-actions">
@@ -162,12 +176,26 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
-      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+      <div>
+        <div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI
+        </div>
+        <p>AI bilan ta'lim kelajagi.</p>
+      </div>
+      <div>
+        <h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4>
+        <p><a href="index.html">Bosh sahifa</a></p>
+        <p><a href="slaydlar.html">Slaydlar</a></p>
+        <p><a href="poyga.html">Dars Race</a></p>
+        <p><a href="kutubxona.html">Saqlanganlar</a></p>
+        <p><a href="profil.html">Profil</a></p>
+      </div>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="auth-guard.js"></script><script src="poyga.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth-guard.js"></script>
+  <script src="poyga.js"></script>
 </body>
+
 </html>

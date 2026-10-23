@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="kutubxona.css">
 </head>
+
 <body>
 
   <nav class="navbar">
@@ -19,7 +21,6 @@
         <li><a href="slaydlar.html">Slaydlar</a></li>
         <li><a href="poyga.html">Dars Race</a></li>
         <li><a href="kutubxona.html" class="active">Saqlanganlar</a></li>
-        <li><a href="profil.html#google-login">🔐 Google orqali kirish</a></li><li><a href="profil.html">Profil</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">🌙</button>
@@ -34,7 +35,8 @@
       <h1>Saqlangan dars materiallari</h1>
       <p>Faqat siz saqlagan rasmlar va slaydlar shu yerda ko‘rinadi.</p>
       <div class="lib-search-box">
-        <input class="form-input lib-search" id="libSearch" placeholder="🔍 Dars mavzusi yoki kalit so'z bo'yicha qidiring...">
+        <input class="form-input lib-search" id="libSearch"
+          placeholder="🔍 Dars mavzusi yoki kalit so'z bo'yicha qidiring...">
       </div>
     </div>
   </header>
@@ -71,12 +73,26 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <div><div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI</div><p>AI bilan ta'lim kelajagi.</p></div>
-      <div><h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4><p><a href="index.html">Bosh sahifa</a></p><p><a href="slaydlar.html">Slaydlar</a></p><p><a href="poyga.html">Dars Race</a></p><p><a href="kutubxona.html">Saqlanganlar</a></p><p><a href="profil.html">Profil</a></p></div>
+      <div>
+        <div class="nav-logo" style="color:#fff;margin-bottom:8px;"><span class="logo-mark">DV</span> Dars Vizual AI
+        </div>
+        <p>AI bilan ta'lim kelajagi.</p>
+      </div>
+      <div>
+        <h4 style="color:#fff;margin-bottom:8px;">Bo'limlar</h4>
+        <p><a href="index.html">Bosh sahifa</a></p>
+        <p><a href="slaydlar.html">Slaydlar</a></p>
+        <p><a href="poyga.html">Dars Race</a></p>
+        <p><a href="kutubxona.html">Saqlanganlar</a></p>
+        <p><a href="profil.html">Profil</a></p>
+      </div>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="auth-guard.js"></script><script src="kutubxona.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth-guard.js"></script>
+  <script src="kutubxona.js"></script>
 </body>
+
 </html>

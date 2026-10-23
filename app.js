@@ -57,6 +57,36 @@ function animateStats() {
 }
 window.addEventListener('load', animateStats);
 
+// Bosh sahifadagi jonli foydalanish yo‘riqnomasi
+const howToSteps = [
+  ['Kerakli bo‘limni tanlang', 'Bosh sahifadagi “Savol yaratish”, “Rasm yaratish” yoki “Slaydlar” bo‘limlaridan keraklisini bosing.', '🧭'],
+  ['Mavzu va sinfni kiriting', 'Fan, sinf, mavzu va qiyinlik darajasini tanlang. Ma’lumot qancha aniq bo‘lsa, natija shuncha foydali bo‘ladi.', '📝'],
+  ['Yaratish tugmasini bosing', '“Yaratish” tugmasini bosing. AI siz uchun savol, rasm, test yoki dars slaydlarini tayyorlaydi.', '⚡'],
+  ['Natijani saqlang va foydalaning', 'Tayyor materialni nusxalang yoki “Saqlash” tugmasi orqali kutubxonaga qo‘shing va darsda ishlating.', '🎯'],
+];
+let howToIndex = 0;
+function renderHowTo() {
+  const [title, text, icon] = howToSteps[howToIndex];
+  document.getElementById('howToTitle').textContent = title;
+  document.getElementById('howToText').textContent = text;
+  document.getElementById('howToLabel').textContent = `${howToIndex + 1}-qadam / ${howToSteps.length}`;
+  document.querySelector('.how-to-icon').textContent = icon;
+  document.querySelector('.how-to-orb').textContent = howToIndex + 1;
+  document.getElementById('howToProgress').style.width = `${((howToIndex + 1) / howToSteps.length) * 100}%`;
+  document.querySelectorAll('.how-to-dot').forEach((dot, i) => dot.classList.toggle('active', i === howToIndex));
+}
+function nextHowTo() { howToIndex = (howToIndex + 1) % howToSteps.length; renderHowTo(); }
+function prevHowTo() { howToIndex = (howToIndex - 1 + howToSteps.length) % howToSteps.length; renderHowTo(); }
+window.addEventListener('DOMContentLoaded', () => {
+  const dots = document.getElementById('howToDots');
+  if (!dots) return;
+  howToSteps.forEach((_, i) => { const dot = document.createElement('button'); dot.className = 'how-to-dot'; dot.setAttribute('aria-label', `${i + 1}-qadam`); dot.onclick = () => { howToIndex = i; renderHowTo(); }; dots.appendChild(dot); });
+  document.getElementById('howToNext').onclick = nextHowTo;
+  document.getElementById('howToPrev').onclick = prevHowTo;
+  renderHowTo();
+  setInterval(nextHowTo, 5000);
+});
+
 function recordStat(statKey) {
   const next = Number(localStorage.getItem(`dv-${statKey}`) || 0) + 1;
   localStorage.setItem(`dv-${statKey}`, String(next));
@@ -68,7 +98,16 @@ function saveLibraryMaterial(fan, sinf, mavzu, desc, icon = '✨', cover = 'math
   saved.unshift(material);
   localStorage.setItem('dv-library-materials', JSON.stringify(saved.slice(0, 50)));
   const userId = JSON.parse(localStorage.getItem('dv-profile') || '{}').userId || 'anonymous';
-  fetch('/api/saqlanganlar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: userId, fan, sinf, mavzu, desc_text: desc, icon, cover }) }).catch(() => {});
+  fetch('/api/saqlanganlar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_id: userId, fan, sinf, mavzu, desc_text: desc, icon, cover }),
+  }).then(async response => {
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.xato || 'Baza xatosi');
+    }
+  }).catch(error => showToast(`Saqlashda xatolik: ${error.message}`));
 }
 
 // --- API: Savol yaratish ---

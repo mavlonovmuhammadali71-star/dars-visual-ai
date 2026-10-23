@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Dars Visual AI — o‘qituvchilar uchun o‘zbek tilidagi AI platforma. Ta’limiy rasm, slayd va interaktiv dars materiallarini yarating.">
-  <meta name="keywords" content="Dars Visual AI, o‘qituvchi AI, dars slayd, ta’limiy rasm, o‘zbekcha AI, dars materiallari">
+  <meta name="description"
+    content="Dars Visual AI — o‘qituvchilar uchun o‘zbek tilidagi AI platforma. Ta’limiy rasm, slayd va interaktiv dars materiallarini yarating.">
+  <meta name="keywords"
+    content="Dars Visual AI, o‘qituvchi AI, dars slayd, ta’limiy rasm, o‘zbekcha AI, dars materiallari">
   <link rel="canonical" href="https://dars-visual-ai.onrender.com/">
   <meta property="og:title" content="Dars Visual AI — O‘qituvchilar uchun AI platforma">
   <meta property="og:description" content="O‘zbek tilida ta’limiy rasm va slaydlar yarating.">
@@ -31,8 +33,9 @@
         <li><a href="index.html" class="active">Bosh sahifa</a></li>
         <li><a href="slaydlar.html">Slaydlar</a></li>
         <li><a href="poyga.html">Dars Race</a></li>
+        <li><a href="bellashuv.html">Bellashuv</a></li>
         <li><a href="kutubxona.html">Saqlanganlar</a></li>
-        <li><a href="profil.html#google-login">🔐 Google orqali kirish</a></li><li><a href="profil.html">Profil</a></li>
+        <li><a href="profil.html">Profil</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Mavzu o'zgartirish">🌙</button>
@@ -74,6 +77,34 @@
       </div>
     </div>
   </header>
+
+  <!-- Qanday foydalaniladi -->
+  <section class="how-to-section" id="qanday-foydalaniladi">
+    <div class="container">
+      <div class="section-head how-to-head">
+        <span class="badge badge-accent">Boshlash juda oson</span>
+        <h2>Saytdan qanday foydalaniladi?</h2>
+        <p>Kerakli vositani tanlang, ma’lumotlarni kiriting va tayyor dars materialini bir necha soniyada oling.</p>
+      </div>
+      <div class="how-to-slider" aria-live="polite">
+        <div class="how-to-visual" id="howToVisual">
+          <div class="how-to-orb">1</div>
+          <div class="how-to-icon">🧭</div>
+        </div>
+        <div class="how-to-content">
+          <div class="how-to-step-label" id="howToLabel">1-qadam / 4</div>
+          <h3 id="howToTitle">Kerakli bo‘limni tanlang</h3>
+          <p id="howToText">Bosh sahifadagi “Savol yaratish”, “Rasm yaratish” yoki “Slaydlar” bo‘limlaridan keraklisini
+            bosing.</p>
+          <div class="how-to-progress"><span id="howToProgress"></span></div>
+          <div class="how-to-controls"><button class="how-to-arrow" id="howToPrev" aria-label="Oldingi qadam">←</button>
+            <div class="how-to-dots" id="howToDots"></div><button class="how-to-arrow" id="howToNext"
+              aria-label="Keyingi qadam">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Statistika -->
   <section class="stats-section">
@@ -134,11 +165,17 @@
               <div class="form-group">
                 <label class="form-label">Sinf</label>
                 <select class="form-select" id="savolSinf">
-                  <option>1-sinf</option><option>2-sinf</option><option>3-sinf</option>
-                  <option>4-sinf</option><option>5-sinf</option><option>6-sinf</option>
+                  <option>1-sinf</option>
+                  <option>2-sinf</option>
+                  <option>3-sinf</option>
+                  <option>4-sinf</option>
+                  <option>5-sinf</option>
+                  <option>6-sinf</option>
                   <option>7-sinf</option>
                   <option>8-sinf</option>
-                  <option>9-sinf</option><option>10-sinf</option><option>11-sinf</option>
+                  <option>9-sinf</option>
+                  <option>10-sinf</option>
+                  <option>11-sinf</option>
                 </select>
               </div>
             </div>
@@ -290,7 +327,9 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="auth-guard.js"></script><script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth-guard.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>
